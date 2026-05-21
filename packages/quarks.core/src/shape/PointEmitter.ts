@@ -34,10 +34,17 @@ export class PointEmitter implements EmitterShape {
         p.velocity.multiplyScalar(p.startSpeed);
 
         p.position.setScalar(0);
-        
+
+        // Only set a default facing-along-velocity orientation if the user's
+        // startRotation didn't already write a non-identity rotation.
+        // (lookAt(ZERO, p.position, UP) would be degenerate here since
+        // p.position is zero — use velocity instead.)
         if (p.rotation instanceof Quaternion) {
-            this._m1.lookAt(ZERO_VEC3, p.position, UP_VEC3);
-            p.rotation.setFromRotationMatrix(this._m1);
+            const r = p.rotation;
+            if (r.x === 0 && r.y === 0 && r.z === 0 && r.w === 1) {
+                this._m1.lookAt(ZERO_VEC3, p.velocity, UP_VEC3);
+                p.rotation.setFromRotationMatrix(this._m1);
+            }
         }
     }
 

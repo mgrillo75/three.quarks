@@ -13,6 +13,9 @@ export class IntervalValue implements ValueGenerator {
 
     indexCount = -1;
 
+    // Roll a random sample once at spawn and remember the slot, so the
+    // particle keeps the same lerp factor for its whole life. See
+    // GeneratorMemory.ts for the slot-allocation pattern.
     startGen(memory: GeneratorMemory) {
         this.indexCount = memory.length;
         memory.push(Math.random());

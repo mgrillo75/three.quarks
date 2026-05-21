@@ -1,5 +1,14 @@
 # Change Log
 
+## Version 0.17.1
+
+- Emit ESM/NodeNext-compatible `.d.ts` files so consumers on `moduleResolution: "nodenext"` resolve types cleanly (#108, thanks @regnaio)
+- Fix emitter shapes overwriting `startRotation`; `Point`/`Sphere`/`Hemisphere`/`Donut`/`Rectangle` now only apply their default facing when rotation is still identity
+- Fix `PointEmitter` always producing identity rotation (`lookAt` ran against just-zeroed position; now uses velocity)
+- Fix `EmitterShapeDemo` font load by switching to a Vite `?url` import
+- Resolve remaining transitive vulnerabilities 
+- Add `RandomQuatGenerator` tests and document the `GeneratorMemory` slot pattern
+
 ## Version 0.17.0
 
 - Add quarks.r3f package for React Three Fiber integration

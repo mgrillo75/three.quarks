@@ -4,6 +4,11 @@ import {IntervalValue} from './IntervalValue';
 import {PiecewiseBezier} from './PiecewiseBezier';
 import {GeneratorMemory} from './GeneratorMemory';
 
+/**
+ * `startGen`/`genValue` follow the per-particle slot pattern documented in
+ * `GeneratorMemory.ts`: spawn calls `startGen(memory)` once (claim a slot or
+ * no-op), then `genValue(memory)` per frame.
+ */
 export interface ValueGenerator {
     type: 'value';
     startGen(memory: any): void;

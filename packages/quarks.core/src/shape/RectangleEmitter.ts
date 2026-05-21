@@ -114,9 +114,13 @@ export class RectangleEmitter implements EmitterShape {
         p.velocity.z = 0;
         p.velocity.normalize().multiplyScalar(p.startSpeed);
 
+        // Default facing-velocity orientation, but defer to startRotation if set.
         if (p.rotation instanceof Quaternion) {
-            this._m1.lookAt(ZERO_VEC3, p.velocity, UP_VEC3);
-            p.rotation.setFromRotationMatrix(this._m1);
+            const r = p.rotation;
+            if (r.x === 0 && r.y === 0 && r.z === 0 && r.w === 1) {
+                this._m1.lookAt(ZERO_VEC3, p.velocity, UP_VEC3);
+                p.rotation.setFromRotationMatrix(this._m1);
+            }
         }
     }
 
